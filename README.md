@@ -198,6 +198,14 @@ them here is a briefly description explaining how we achieve that goals:
 
 ## Known Limitations
 
+There is a serious limitation while autoscaling. The virtual machines does not
+know about each other's filesystem. So while the session problem can be
+mitigated while using ELB stickness and single database, there are files being
+different among all Web Servers, so one might upload some file which reffers to
+a single machine storage and others will not able to access that file. This can
+be solved by using csync2, NFS, GlusterFS, some S3 storage plugin for myBB or
+anything else capable of getting all files stored into a single place.
+
 There is one limitation related to the Elastic Load Balancer setup, which could
 be done with 2 ELBs linked to EC2 instances. But for that we must assume one
 DNS domain should be used to it. It is possible to determine in Route53 that a
